@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-scale=1.0">
+    <title>Carlo Falcone</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+            height: 100vh;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
+            color: #F6F5F5; 
+        }
+        .heading {
+            font-size: 32px;
+            color: #FFA500; 
+            margin-bottom: 20px;
+        }
+        .poem {
+            white-space: pre; 
+            font-size: 24px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .rest-in-peace {
+            font-size: 24px; 
+            line-height: 1.5;
+            text-align: center; 
+            margin-top: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">In memories of a beloved canine soul</div>
+    <div class="poem" id="poem"></div>
+    <div class="rest-in-peace" id="restInPeace" style="display: none;"></div>
+
+    <script>
+        const lines = [
+            "Whose joyous barks and wags left a lasting mark,",
+            "A love so loyal, a bond so strong,",
+            "Our lives forever changed, your spirit ever on.",
+            "",
+            "With laughter and playtime, you filled our days,",
+            "A faithful friend, forever in our thoughts you stay.",
+        ];
+
+        let currentLine = 0;
+        const poemElement = document.getElementById('poem');
+        const restInPeaceElement = document.getElementById('restInPeace');
+
+        function typeLine() {
+            if (currentLine < lines.length) {
+                let line = lines[currentLine];
+                let charIndex = 0;
+
+                const typingInterval = setInterval(() => {
+                    if (charIndex < line.length) {
+                        poemElement.innerHTML += line.charAt(charIndex);
+                        charIndex++;
+                    } else {
+                        clearInterval(typingInterval);
+                        currentLine++;
+                        setTimeout(() => {
+                            poemElement.innerHTML += '<br>'; 
+                            changeColor();
+                            typeLine(); 
+                        }, 500); // Reduced delay after each line
+                    }
+                }, 70); // Increased typing speed
+            } else {
+                setTimeout(() => {
+                    restInPeaceElement.innerHTML = "Rest in peace 16-01-2024"; 
+                    restInPeaceElement.style.display = "block"; 
+                }, 1000); 
+            }
+        }
+
+        function changeColor() {
+            const originalColor = poemElement.style.color === '#F6F5F5' ? '#FFA500' : '#F6F5F5';
+            poemElement.style.color = originalColor;
+
+            setTimeout(changeColor, 100); 
+        }
+
+        typeLine(); 
+    </script>
+</body>
+</html>
